@@ -1,0 +1,31 @@
+.list-group {
+  max-width: 250px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.navbar {
+  margin-bottom: 20px;
+}
+
+.content {
+  margin-left: 20px;
+}
+
+.form-group {
+  width: 500px;
+  margin-bottom: 10px;
+}
+
+.login {
+  /* margin-left: 700px; */
+  /* background-color: #007bff;
+  border-radius: 5px;
+  width: 100px;
+  text-align: center; */
+  float: right;
+}
