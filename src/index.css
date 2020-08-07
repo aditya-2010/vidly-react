@@ -17,15 +17,5 @@
 }
 
 .form-group {
-  width: 500px;
   margin-bottom: 10px;
-}
-
-.login {
-  /* margin-left: 700px; */
-  /* background-color: #007bff;
-  border-radius: 5px;
-  width: 100px;
-  text-align: center; */
-  float: right;
 }

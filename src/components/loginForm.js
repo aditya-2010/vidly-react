@@ -3,27 +3,38 @@ import Input from "./common/input";
 
 const LoginForm = () => {
   const [account, setAccount] = useState({ email: "", password: "" });
-  const [errors, setErrors] = useState({});
+  const [err, setErr] = useState({});
 
   const validate = () => {
-    // const errors = {};
-    if (account.email === "") errors.email = "Email is required";
-    if (account.password === "") errors.password = "Password is required";
-    // console.log(Object.values(errors));
-    return Object.keys(errors).length === 0 ? null : errors;
+    const errors = {};
+    if (account.email.trim() === "") errors.email = "Email is required";
+    if (account.password.trim() === "")
+      errors.password = "Password is required";
+    return Object.keys(errors).length === 0 ? {} : errors;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newErrors = validate();
-    setErrors(newErrors);
-    console.log(errors);
-    if (errors) return;
-    console.log("submitted");
+
+    setErr(validate());
+    // Call the server
+    // console.log("submitted");
+  };
+
+  const validateProperty = ({ name, value }) => {
+    if (name === "email") if (value === "") return "Please provide an Email";
+    if (name === "password")
+      if (value === "") return "Please provide a Password";
   };
 
   const handleChange = ({ currentTarget: input }) => {
     // currentTarget is destructured from e
+    const newErrors = { ...err };
+    const errorMessage = validateProperty(input);
+    if (errorMessage) newErrors[input.name] = errorMessage;
+    else delete newErrors[input.name];
+    setErr(newErrors);
+
     const acc = { ...account };
     acc[input.name] = input.value;
     setAccount(acc);
@@ -31,25 +42,31 @@ const LoginForm = () => {
 
   return (
     <div className="container">
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <Input
-          autoFocus={true}
-          name="email"
-          type="email"
-          label="Email"
-          value={account.email}
-          onChange={handleChange}
-        />
-        <Input
-          name="password"
-          type="password"
-          label="Password"
-          value={account.password}
-          onChange={handleChange}
-        />
-        <button className="btn btn-primary">Login</button>
-      </form>
+      <div className="row">
+        <div className="col-sm-6 offset-sm-3">
+          <h1>Login</h1>
+          <form onSubmit={handleSubmit}>
+            <Input
+              autoFocus={true}
+              name="email"
+              type="text"
+              label="Email"
+              value={account.email}
+              onChange={handleChange}
+              error={err.email}
+            />
+            <Input
+              name="password"
+              type="text"
+              label="Password"
+              value={account.password}
+              onChange={handleChange}
+              error={err.password}
+            />
+            <button className="btn btn-primary">Login</button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };
