@@ -8,6 +8,8 @@ import ListGroup from "./common/listGroup";
 import { getGenres } from "../services/fakeGenreService";
 import MoviesTable from "./moviesTable";
 import _ from "lodash";
+import { Link } from "react-router-dom";
+// import Input from "./common/input";
 
 const Movies = () => {
   const genres = [{ _id: "", name: "All Genres" }, ...getGenres()];
@@ -23,6 +25,7 @@ const Movies = () => {
   const handleDelete = (movie) => {
     let newMovies = movies.filter((m) => m._id !== movie._id);
     setMovies(newMovies);
+    setCurrentPage(1);
   };
 
   const handlePageChange = (page) => {
@@ -84,6 +87,10 @@ const Movies = () => {
           <p>
             <u>Showing {filteredMovies.length} movies in the database.</u>
           </p>
+          <Link className="btn btn-primary" to="/movie/new">
+            Add New Movie
+          </Link>
+          {/* <Input name="Search" placeholder="Search..." /> */}
           <MoviesTable
             movies={paginatedMovies}
             sortColumn={sortColumn}
